@@ -7,7 +7,7 @@ function isValidUnixTimeStamp(date) {
   return allNums;
 };
 
-function isValidNaturalTimeStamp(date) {
+function isValidNaturalDate(date) {
   var reg = /[A-Za-z]+\s\d+,\s\d+$/g
   var naturalDate = reg.test(date);
   return naturalDate;
@@ -21,7 +21,7 @@ function dateToJson(date) {
   
   // Determine if unix or natural by checking of entire string is number or not
   var isUnix    = isValidUnixTimeStamp(date);
-  var isNatural = isValidNaturalTimeStamp(date);
+  var isNatural = isValidNaturalDate(date);
   
   if (isUnix) {
     d = new Date(date * 1000);
