@@ -2,11 +2,12 @@
   "name": "timestamp",
   "version": "1.0.0",
   "main": "index.js",
+  "description": "Simple API to validate natural language and Unix timestamps. FreeCodeCamp project.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
+  "author": "Sean M Hamlet <seanmhamlet@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
