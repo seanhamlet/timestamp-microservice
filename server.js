@@ -1,4 +1,5 @@
 var express = require('express');
+var moment = require('moment');
 var path = require('path');
 var app = express();
 
@@ -18,7 +19,6 @@ function isValidNaturalDate(date) {
 
 function dateToJson(date) {
   
-  // maybe make one function that determins of unix or natural or null and returns the object if either and returns null object if not.
   var jsonString;
   var d;
   
@@ -27,41 +27,16 @@ function dateToJson(date) {
   var isNatural = isValidNaturalDate(date);
   
   if (isUnix) {
-    d = new Date(date * 1000);
-    jsonString = JSON.stringify({'unix': parseInt(date), 'natural': getDateString(d)});
+    d = moment.unix(date);
+    jsonString = JSON.stringify({'unix': parseInt(date), 'natural': d.format("MMMM DD, YYYY")});
   } else if (isNatural) {
-    d = new Date(date);
-    jsonString = JSON.stringify({'unix': d.getTime() / 1000, 'natural': date});
+    d = moment(date, "MMMM DD, YYYY");
+    jsonString = JSON.stringify({'unix': d.format('x') / 1000, 'natural': date});
   } else {
     jsonString = JSON.stringify({'unix': null, 'natural': null});
   }
   
   return jsonString;
-}
-
-function getDateString(date) {
-  
-  var months = new Array();
-  months[0]  = "January";
-  months[1]  = "February";
-  months[2]  = "March";
-  months[3]  = "April";
-  months[4]  = "May";
-  months[5]  = "June";
-  months[6]  = "July";
-  months[7]  = "August";
-  months[8]  = "September";
-  months[9]  = "October";
-  months[10] = "November";
-  months[11] = "December";
-  
-  var month = months[date.getMonth()];
-  var day   = date.getDate();
-  var year  = date.getUTCFullYear();
-  
-  var dateString = month + ' ' + day + ', ' + year;
-  
-  return dateString;
 }
 
 // Use *? to allow for optional parameters (i.e. no parameters given)
